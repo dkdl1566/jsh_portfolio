@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 웹페이지 정보 -->
+  <meta name="author" content="portfolio">
+  <meta name="keywords" content="portfolio,personal portfolio,web portfolio,design port folio,포트폴리오,개인 포트폴리오,웹 포트폴리오,디자인 포트폴리오">
+  <meta name="discription" content="풀스택 개발자를 꿈꾸는 초보 웹퍼블리셔/디자이너의 포트폴리오">
+  <meta name="copyright" content="Jung seung-ho">
+  <!-- 오픈그래픽 -->
+  <meta property="og:title" content="portfolio">
+  <meta property="og:url" content="http://dkdl1566.dothome.co.kr/portfolio">
+  <meta property="og:image" content="./images/ogimage.png">
+  <meta property="og:discription" content="풀스택 개발자를 꿈꾸는 초보 웹퍼블리셔/디자이너의 포트폴리오">
+  <!-- 트위터 -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="portfolio">
+  <meta name="twitter:url" content="http://dkdl1566.dothome.co.kr/portfolio">
+  <meta name="twitter:image" content="./images/ogimage.png">
+  <meta name="twitter:discription" content="풀스택 개발자를 꿈꾸는 초보 웹퍼블리셔/디자이너의 포트폴리오">
+
+  <title>Jsh PortFolio</title>
+  <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  
+  <style>
+    .loader {
+      background: rgba(0,0,0,0.3);
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      }
+    .loader.active {display: none;}
+    .loader p.typing-txt{
+      display: none;
+      }
+    .typing {  
+      font-size: 3rem;
+      font-weight: bold;
+     /*position: absolute;*/ 
+      display: inline-block; 
+      animation: cursor 0.3s infinite; 
+    } 
+    @keyframes cursor{ 
+      0%{border-right: 1px solid #fff} 
+      50%{border-right: 1px solid #000} 
+      100%{border-right: 1px solid #fff} 
+    }
+
+    /* 스킵메뉴 */
+    .skip_menu a{display:inline-block;padding:10px 20px;background-color:#36bc9b;color:#ffffff;position:fixed;left:50%;top:0;transform:translate(-50%,-100%);transition:transform 0.1s;}
+    .skip_menu a:focus{transform:translate(-50%,0%);}
+
+    /* 공통스타일 */
+    .wrap{
+      width:100%;
+      max-width:1200px;
+      margin:0 auto;
+      opacity: 0;
+      transition: 1s;
+    }
+    .wrap.active{
+      opacity: 1;
+    }
+    .container{
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    /* header style */
+    .header{
+      width: 100%;
+      height: 60px;
+      padding: 15px;
+      background-color: #36bc9b;
+      position: relative;
+    }
+    .header .main_logo{
+      float: left;
+      width: 80px;
+      height: 50px;
+    }
+    .header .main_logo p{
+      font-size:23px;
+      font-weight: 900;
+      color:#fff;
+      line-height: 50px;
+    }
+    .header nav{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      background-color:#fff;
+      z-index: 5;
+      display: none;
+      overflow: hidden;
+    }
+    .header nav .main_nav{
+      padding:0.5%;
+    }
+    .header nav .main_nav>li{padding:1rem 0;border-bottom:1px solid rgba(0,0,0,0.3);}
+    .header nav .main_nav>li:last-child{border:none;}
+    .header nav .main_nav>li:hover{background-color: #264d4e;}
+    .header nav .main_nav>li:hover a{color:#fff;}
+    .header nav .main_nav>li a{font-size:1.2rem;color:#333;padding-left: 2rem;}
+    .header .tgl_menu{
+      float: right;
+      cursor: pointer;
+      position: relative;
+    }
+    .header .tgl_menu>img{
+      width: 30px;
+      position: absolute;
+      right: -25px;
+      top: 0;
+    }
+
+    /* about style */
+    .about{
+      width: 100%;
+      height: 500px;
+      background:url(./images/laptop-1209008_1280.jpg) no-repeat;
+    }
+    .about .container{position: relative;}
+    .about .about_tit{
+      width: 210px;
+      height: 70px;
+      position: absolute;
+      right: 0;
+      top: 30px;
+    }
+    .about .about_tit>h2{
+      font-size:36px;
+      font-weight:900;
+      color:#36bc9b;
+      text-shadow: 2px 2px 2px #fff;
+    }
+    .about .about_tit>p{
+      font-size:16px;
+      font-weight: 500;
+      color:#36bc9b;
+      text-align: end;
+      text-shadow: 0px 1px 1px #fff;
+    }
+    .about .about_txt{
+      width: 300px;
+      height: 90px;
+      padding-left: 2rem;
+      position: absolute;
+      left: 0;
+      bottom: -420px;
+      background-color: #36bc9b;
+      display: flex;
+      align-items: center;
+    }
+    .about .about_txt>p{
+      font-size:14px;
+      font-weight: 700;
+      line-height: 18px;
+      color:#fff;
+    }
+    /* certificate style */
+    .certificate{
+      padding: 30px 0;
+      background-color: #eee;
+    }
+    .certificate .container{
+      position: relative;
+    }
+    .certificate_tit h3{
+      font-size:24px;
+      font-weight: 700;
+      color:#126e57;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .click_me{
+      width: 77px;
+      position: absolute;
+      right: 0;
+      top: 70px;
+    }
+    .my_photo{
+      width: 320px;
+      height: 320px;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      margin: 0 auto;
+      cursor:pointer;
+      background-size: cover;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .my_photo .photo{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 50%;
+      overflow: hidden;
+      z-index:6;
+      transition: 0.3s;
+      opacity: 0;
+    }
+    .my_photo .photo.active{
+      z-index: 7;
+      opacity: 1;
+    }
+    .activity{
+      display: flex;
+      flex-flow:row nowrap;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+    .univercity,.hobby{
+      width: 162px;
+      height: 100px;
+      padding: 5px 0;
+      border-radius: 10px;
+    }
+    .univercity{
+      background-color: #192e29;
+    }
+    .hobby{
+      background-color: #126e57;
+    }
+    .activity_img{
+      width: 60px;
+      margin-bottom: 10px;
+      display: block;
+      margin: 0 auto;
+    }
+    .activity_txt p{
+      font-size:14px;
+      font-weight: 500;
+      line-height: 18px;
+      color:#fff;
+      text-align: center;
+      margin-top: 5px;
+    }
+    .web_box{
+      display: flex;
+      flex-flow:row wrap;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      padding: 1rem;
+      background-color: #36bc9b;
+    }
+    .web_box img{
+      width: 52px;
+    }
+    .web_box .web{
+      margin-bottom: 40px;
+    }
+    .web_box .web:last-child{
+      margin-bottom: 0;
+    }
+    .web_tit{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .web_tit .img_box{
+      flex:5;
+      text-align: right;
+    }
+    /* .web_tit img{
+      margin-right: 1rem;
+    } */
+    .web_tit p{
+      flex:7;
+      padding-left: 20px;
+      text-align: left;
+      font-size:18px;
+      color:#fff;
+    }
+    .web_txt{
+      width: 100%;
+      color:#fff;
+      text-align: center;
+    }
+    /* skill style */
+    .skill{
+      padding: 30px 0;
+      background-color: #264d4e;
+    }
+    .skills_tit h3{
+      font-size:24px;
+      font-weight: 700;
+      color:#00ffc0;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .skills_box{
+      display: flex;
+      flex-flow:row wrap;
+      align-items: center;
+    }
+    .skills_cont img{
+      width: 58px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .skills_cont{
+      width: 46%;
+      margin-right: 8%;
+      margin-bottom: 30px;
+    }
+    .skills_cont:nth-child(2n){
+      margin-right: 0;
+    }
+    .skills_cont:nth-child(5),.skills_cont:nth-child(6){
+      margin-bottom: 0;
+    }
+    .skills_cont p{
+      color:#fff;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .cont_tit{
+      font-size:1.2rem;
+      font-weight: 500;
+    }
+    .cont_txt{
+      font-size:15px;
+      font-weight: 400;
+    }
+    /* portfolio style */
+    .portfolio{
+      padding: 30px 0;
+      background-color: #3e3d38;
+    }
+    .port_tit h3{
+      font-size:38px;
+      font-weight: 700;
+      color:#00ffc0;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .portfolio_slide{
+      /* width: 400px; */
+      height: 400px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .btn_more{
+      position: absolute;
+      left: 50%;
+      bottom: 12%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 50px;
+      background-color: #00ffc0;
+      border-radius: 5%;
+      cursor: pointer;
+    }
+    .btn_more p{
+      text-align: center;
+      line-height: 50px;
+      font-size:15px;
+      font-weight: 700;
+      color:#3e3d38;
+    }
+    .swiper-button-next:after,.swiper-button-prev:after{
+      color:#36bc9b;
+    }
+    /* footer 스타일 */
+    .footer{
+      padding: 30px 0;
+      background-color: #36bc9b;
+    }
+    .e_mail{
+      font-size:2rem;
+      font-weight: 500;
+      color:#fff;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .e_mail a{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50px;
+      bottom: 0;
+      color:#fff;
+    }
+    .e_mail a:hover{
+      color:#192e29;
+      font-size:1.2rem;
+      font-weight: 500;
+    }
+    .row{
+      display: flex;
+      flex-flow:row nowrap;
+      justify-content: space-between;
+    }
+    .footer_content p,.row>p,.row p a{
+      color:#fff;
+    }
+  </style>
+  
+  
+</head>
+<body>
+  <div class="loader" aria-label="로딩소스">
+    <p class="typing-txt">Jsh.PortFolio</p>
+    <p class="typing"></p>
+  </div>
+  <div class="skip_menu">
+    <ul>
+      <li><a href="#about">About Me 바로가기</a></li>
+      <li><a href="#skills">Skills 바로가기</a></li>
+      <li><a href="#portfolio">Portfolio 바로가기</a></li>
+      <li><a href="#contact">Contact Me 바로가기</a></li>
+    </ul>
+  </div>
+  <!-- //skip_menu -->
+  <div class="wrap">
+    <header class="header clearfix">
+      <div class="container">
+        <h1 class="main_logo">
+          <p>Jsh.PortFolio</p>
+        </h1>
+        <nav>
+          <ul class="main_nav clearfix">
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact Me</a></li>
+          </ul>
+        </nav>
+        <div class="tgl_menu">
+          <img src="./images/btn_menu.svg" alt="메뉴버튼">
+        </div>
+      </div>
+    </header>
+    <!-- //header -->
+    <section class="section about" id="about">
+      <div class="container">
+        <div class="about_tit">
+          <h2>PORTFOLIO</h2>
+          <p>Jeong seung ho</p>
+        </div>
+        <div class="about_txt">
+          <p>
+            안녕하세요.<br>
+            끊임없이 찾아보고 습득하여 성장하는<br>
+            웹 디자이너 및 퍼블리셔 정승호입니다.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- //section about -->
+    <section class="section certificate">
+      <div class="container">
+        <div class="certificate_tit">
+          <h3>Certificate & Activities</h3>
+        </div>
+        <div class="my">
+          <div class="click_me">
+          <img src="./images/click_me.svg" alt="click_me">
+        </div>
+        <ul class="my_photo">
+          <li class="photo photo01 active">
+            <img src="./images/my01.jpg" alt="내사진1">
+          </li>
+          <li class="photo photo02">
+            <img src="./images/my02.jpg" alt="내사진2">
+          </li>
+          <li class="photo photo03">
+            <img src="./images/my03.jpg" alt="내사진3">
+          </li>
+        </ul>
+        </div>
+        <div class="activity">
+          <div class="univercity">
+            <div class="activity_img">
+              <img src="./images/graduation-cap-solid.svg" alt="대학아이콘">
+            </div>
+            <div class="activity_txt">
+              <p>
+                백제예술대학교<br>
+                한류예술과
+              </p>
+            </div>
+          </div>
+          <div class="hobby">
+            <div class="activity_img">
+              <img src="./images/gamepad-solid.svg" alt="취미아이콘">
+            </div>
+            <div class="activity_txt">
+              <p>
+                코딩하기<br>
+                등산, 운동하기
+              </p>
+            </div>
+          </div>
+          
+        </div>
+        <div class="web_box">
+          <div class="web web01">
+            <div class="web_tit">
+              <div class="img_box">
+                <img src="./images/ico_earch.png" alt="지구본">
+              </div>
+              <p>Web Design</p>
+            </div>
+            <p class="web_txt">사용자를 위한 디자인을 만들기 위해 꾸준한 자료서치와 분석을 하고 있습니다.</p>
+          </div>
+          <div class="web web02">
+            <div class="web_tit">
+              <div class="img_box">
+                <img src="./images/ico_link.png" alt="link">
+              </div>
+              <p>Graphic Design</p>
+            </div>
+            <p class="web_txt">일러스트, 편집 등 다양한 분야의 경험을 갖고 있는 다재다능한 디자이너입니다.</p>
+          </div>
+          <div class="web web03">
+            <div class="web_tit">
+              <div class="img_box">
+                <img src="./images/ico_tag.png" alt="tag">
+              </div>
+              <p>Publisher</p>
+            </div>
+            <p class="web_txt">웹표준을 지키며 html, css, javascript, jquery를 다루는 퍼블리셔입니다.</p>
+          </div>
+          <div class="web web04">
+            <div class="web_tit">
+              <div class="img_box">
+                <img src="./images/ico_user.png" alt="user">
+              </div>
+              <p>Coperation</p>
+            </div>
+            <p class="web_txt">팀으로 다양한 프로젝트를 진행하면서 원활한 협업을 끌어내려고 노력합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- //section certificate -->
+    <section class="section skill">
+      <div class="container">
+        <div class="skills_tit">
+          <h3>My Skills</h3>
+        </div>
+        <ul class="skills_box">
+          <li class="skills_cont">
+            <img src="./images/ico_ps.svg" alt="포토샵">
+            <p class="cont_tit">Photoshop</p>
+            <p class="cont_txt">포토샵을 이용하여 웹디자인 제작과 이미지 보정, 쇼핑몰의 상세페이지 제작이 가능합니다.</p>
+          </li>
+          <li class="skills_cont">
+            <img src="./images/ico_ai.svg" alt="일러스트">
+            <p class="cont_tit">Illustator</p>
+            <p class="cont_txt">일러스트레이터를 이용하여 Icon / CI / BI / 캐릭터 디자인 제작이 가능합니다.</p>
+          </li>
+          <li class="skills_cont">
+            <img src="./images/ico_html.svg" alt="HTML5">
+            <p class="cont_tit">HTML5</p>
+            <p class="cont_txt">웹표준을 기반으로 웹접근성에 충실한 웹문서를 만들 수 있습니다.</p>
+          </li>
+          <li class="skills_cont">
+            <img src="./images/ico_css.svg" alt="CSS3">
+            <p class="cont_tit">CSS3</p>
+            <p class="cont_txt">최신 트렌드를 충실히 반영한 레이아웃 구현을 위해 flex, grid, SASS등을 사용합니다.</p>
+          </li>
+          <li class="skills_cont">
+            <img src="./images/ico_js.svg" alt="javascript">
+            <p class="cont_tit">javaScript</p>
+            <p class="cont_txt">라이브러리와 플러그인을 배제한 바닐라스크립트로 각종 이벤트를 작성 할 수 있습니다.</p>
+          </li>
+          <li class="skills_cont">
+            <img src="./images/ico_jquery.svg" alt="jquery">
+            <p class="cont_tit">jQuery</p>
+            <p class="cont_txt">jQuery의 각종 메서드와 플러그인의 조합으로 최적의 Responsive 웹을 구현합니다.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+    <!-- //section skill -->
+    <section class="section portfolio">
+      <div class="container">
+        <div class="port_tit">
+          <h3>Portfolio</h3>
+        </div>
+        <!-- Slider main container -->
+        <div class="portfolio_slide swiper-container">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <div class="slide slide01">
+                <img src="./images/indigo.png" alt="indigo">
+              </div>
+              <div class="btn_more">
+                <p>
+                  사이트 바로가기
+                </p>
+              </div>    
+            </div>
+            <div class="swiper-slide">
+              <div class="slide slide01">
+                <img src="./images/megabox.png" alt="megabox">
+              </div>
+              <div class="btn_more">
+                <p>
+                  사이트 바로가기
+                </p>
+              </div>   
+            </div>
+            <div class="swiper-slide">
+              <div class="slide slide01">
+                <img src="./images/hansol.png" alt="hansol">
+              </div>
+              <div class="btn_more">
+                <p>
+                  사이트 바로가기
+                </p>
+              </div>   
+            </div>
+            <div class="swiper-slide">
+              <div class="slide slide01">
+                <img src="./images/mozilla.png" alt="mozilla">
+              </div>
+              <div class="btn_more">
+                <p>
+                  사이트 바로가기
+                </p>
+              </div>   
+            </div>
+          </div>
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+      </div>
+    </section>
+    <!-- //section portfolio -->
+    <footer class="footer">
+      <div class="container">
+        <div class="content footer_content">
+          <h2 class="h2 e_mail">
+            tkdqja0517@nate.com
+            <a href="./doc/이력서.txt" download>이력서 다운로드</a>
+          </h2>
+          <p class="p">
+            좋은소식 기다리겠습니다!
+          </p>
+          <div class="row">
+            <p>
+              <a href="https://www.github.com/dkdl1566" target="_blank">gitHub</a>
+            </p>
+            <p>Copyright 2021 JSH</p>
+          </div>
+        </div>          
+      </div>
+    </footer>
+    <!-- //footer -->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/prefixfree.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+      $(function(){
+        // myphoto 클릭이벤트
+        $('.photo').on('click',function(){
+          let photoIndex = $(this).index();
+          if(photoIndex < $('.photo').length-1){
+            photoIndex++;
+          }else{
+            photoIndex=0;
+          }
+          $('.photo').removeClass('active');
+          $('.photo').eq(photoIndex).addClass('active');
+        })
+        const swiper = new Swiper('.swiper-container', {
+          // Optional parameters
+          direction: 'vertical',
+          loop: true,
+          // Navigation arrows
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }
+        }); 
+
+        
+
+        var typingBool = false; 
+        var typingIdx=0; 
+        var typingTxt = $(".typing-txt").text(); // 타이핑될 텍스트를 가져온다 
+        typingTxt=typingTxt.split(""); // 한글자씩 자른다. 
+        if(typingBool==false){ // 타이핑이 진행되지 않았다면 
+          typingBool=true; // 모름
+          
+          var tyInt = setInterval(typing,100); // 반복동작 
+        } 
+     
+        function typing(){ 
+          if(typingIdx<typingTxt.length){ // 타이핑될 텍스트 길이만큼 반복 
+            $(".typing").append(typingTxt[typingIdx]); // 한글자씩 이어준다. 
+            typingIdx++; 
+          } else{ 
+            clearInterval(tyInt); //끝나면 반복종료
+            setTimeout(function(){
+              $('.loader').addClass('active');
+            },300)
+            setTimeout(function(){
+              $('.wrap').addClass('active');
+              
+            },1000)  
+            
+
+
+
+          } 
+        }
+        
+      })
+    </script>
+  </div>
+  <!-- //wrap -->
+</body>
+</html>
